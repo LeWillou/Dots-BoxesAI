@@ -12,12 +12,12 @@ import time
 #            Global variables to define
 # ----------------------------------------
 
-GRAPHIC_MODE = True
+GRAPHIC_MODE = False
 
 AI_PLAYER_1 = "players.willou"
-AI_PLAYER_2 = "players.c3po"
+AI_PLAYER_2 = "players.willou2"
 
-LOAD_TRAINED_MODEL = False
+LOAD_TRAINED_MODEL = True
 NB_DUEL = 15000
 
 

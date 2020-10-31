@@ -6,7 +6,7 @@ class model:
 	# q_table = []
 
 	def __init__(self, load_trained):
-		self.name = "willou" # put your name here
+		self.name = "willou2" # put your name here
 
 		if load_trained:
 			self.load()

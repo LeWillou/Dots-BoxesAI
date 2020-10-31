@@ -12,13 +12,14 @@ import time
 #            Global variables to define
 # ----------------------------------------
 
-GRAPHIC_MODE = False
+GRAPHIC_MODE = True
 
 AI_PLAYER_1 = "players.willou"
 AI_PLAYER_2 = "players.c3po"
 
-LOAD_TRAINED_MODEL = True
-NB_DUEL = 10
+LOAD_TRAINED_MODEL = False
+NB_DUEL = 15000
+
 
 # ----------------------------------------
 #            Global fixed variables
@@ -294,11 +295,13 @@ def duel(current_duel, player1, player2):
     # game is finished!
     if score[0] > score[1]:
         print(f"{player1.name} won! Score: {score[0]} to {score[1]}")
-        player1.did_i_win(1)
+        player1.did_i_win(player1, 1)
+
 
     else: #pas de nombre pair de points
         print(f"{player2.name} won! Score: {score[0]} to {score[1]}")
-        player1.did_i_win(0)
+        player1.did_i_win(player1, 0)
+
 
 def duel_graphic(current_duel, player1, player2):
     global is_AI1_turn
@@ -327,10 +330,10 @@ def duel_graphic(current_duel, player1, player2):
     disp_board()
     if score[0] > score[1]:
         print(f"{player1.name} won! Score: {score[0]} to {score[1]}")
-        #ai_player.did_i_win(1)
+        player1.did_i_win(player1, 1)
     else: #pas de nombre pair de points
         print(f"{player2.name} won! Score: {score[0]} to {score[1]}")
-        #ai_player.did_i_win(0)
+        player1.did_i_win(player1, 0)
     sleep(0.5)
 
 

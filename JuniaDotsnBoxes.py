@@ -15,10 +15,10 @@ import time
 GRAPHIC_MODE = False
 
 AI_PLAYER_1 = "players.willou"
-AI_PLAYER_2 = "players.willou2"
+AI_PLAYER_2 = "players.c3po"
 
 LOAD_TRAINED_MODEL = True
-NB_DUEL = 15000
+NB_DUEL = 1
 
 
 # ----------------------------------------
@@ -345,6 +345,8 @@ if __name__ == "__main__":
     global ai_player_1
     global ai_player_2
 
+    counter = 0
+
     ai_player_1 = import_module(AI_PLAYER_1).model(load_trained=LOAD_TRAINED_MODEL) #instantiate class by loading or creating model
     ai_player_2 = import_module(AI_PLAYER_2).model(load_trained=LOAD_TRAINED_MODEL)
 
@@ -362,6 +364,7 @@ if __name__ == "__main__":
             except Exception as inst:
                 print(inst)
                 print(f"{ai_player_1.name if is_AI1_turn else ai_player_2.name} disqualified")
+        ai_player_1.check_duplicates(ai_player_1)
 
     else:
         for i in range(NB_DUEL):
@@ -370,6 +373,7 @@ if __name__ == "__main__":
             except Exception as inst:
                 print(inst)
                 print(f"{ai_player_1.name if is_AI1_turn else ai_player_2.name} disqualified")
+
     if not LOAD_TRAINED_MODEL: #if training : save model file
         ai_player_1.save()
         ai_player_2.save()

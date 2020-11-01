@@ -33,6 +33,20 @@ class model:
 		pass
 
 	@staticmethod
+	def check_duplicates(self):
+		# states_in_q_table = []
+		# for i in range(len(self.q_table)):
+		# 	states_in_q_table.insert(0, self.q_table[i][0])
+		#
+		# for states in states_in_q_table:
+		# 	#print(states)
+		# 	if states_in_q_table.count(states)>=400:
+		# 		print("Duplicate found")
+		# 		print("\n")
+		pass
+
+
+	@staticmethod
 	def did_i_win(self, result):
 		# if result == 1:
 		# 	for i in range(len(current_game)):
@@ -86,7 +100,9 @@ class model:
 					self.current_game[i][2] += 1
 					self.q_table.insert(0,self.current_game[i])
 					#print(self.current_game[i])
-
+		#print(self.q_table[0])
+		print("\n")
+		print(self.q_table)
 		self.current_game.clear()
 		pass
 
@@ -109,8 +125,9 @@ class model:
 
 		is_found = 0
 		choice_list = list()
-		state = [board, available_cells]
-
+		state = [board, available_cells[0:]]
+		print(state)
+		print("\n\n")
 		if len(self.q_table) == 0:
 			self.current_choice.append(state)
 			cell_to_choose = choice(available_cells)

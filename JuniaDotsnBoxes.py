@@ -5,6 +5,7 @@
 import pygame
 from importlib import import_module
 import sys
+import traceback
 from collections import namedtuple
 import time
 
@@ -15,7 +16,7 @@ import time
 GRAPHIC_MODE = False
 
 AI_PLAYER_1 = "players.willou"
-AI_PLAYER_2 = "players.c3po"
+AI_PLAYER_2 = "players.bender"
 
 LOAD_TRAINED_MODEL = True
 NB_DUEL = 1
@@ -362,9 +363,9 @@ if __name__ == "__main__":
             try:
                 duel(i, ai_player_1, ai_player_2)
             except Exception as inst:
-                print(inst)
+                traceback.print_exc(file=sys.stdout)
                 print(f"{ai_player_1.name if is_AI1_turn else ai_player_2.name} disqualified")
-        ai_player_1.check_duplicates(ai_player_1)
+        #ai_player_1.check_duplicates(ai_player_1)
 
     else:
         for i in range(NB_DUEL):

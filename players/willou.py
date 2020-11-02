@@ -58,27 +58,27 @@ class model:
 	def did_i_win(self, result):
 		if result == 1:
 			for i in range(len(self.current_game) - 1):
-				if np.all(np.isin(self.current_game[i,0], self.q_table)) == True:
-					index_cell = np.where(self.total_cells == self.current_game[i,1])
-					index_state = np.where(self.q_table == self.current_game[i,0])
+				if np.all(np.isin(self.current_game[i][0], self.q_table)) == True:
+					index_cell = np.where(self.total_cells == self.current_game[i][1])
+					index_state = np.where(self.q_table == self.current_game[i][0])
 					self.q_table[index_state[0][0], index_cell[0][1]-1] += self.learning_rate * (self.gamma * 1 - self.q_table[index_state[0][0], index_cell[0][1]-1])
 				else:
 					for l in range(len(self.q_table) - 1):
 						if self.q_table[l, 0] == 0:
-							self.q_table[l, 0] = self.current_game[i,0]
-							index_cell = np.where(self.total_cells == self.current_game[i,1])
+							self.q_table[l, 0] = self.current_game[i][0]
+							index_cell = np.where(self.total_cells == self.current_game[i][1])
 							self.q_table[l, index_cell[0][1]-1] += self.learning_rate * (self.gamma * 1 - self.q_table[index_state[0][0], index_cell[0][1]-1])
 		else:
 			for i in range(len(self.current_game) - 1):
-				if np.all(np.isin(self.current_game[i,0], self.q_table)) == True:
-					index_cell = np.where(self.total_cells == self.current_game[i,1])
-					index_state = np.where(self.q_table == self.current_game[i,0])
+				if np.all(np.isin(self.current_game[i][0], self.q_table)) == True:
+					index_cell = np.where(self.total_cells == self.current_game[i][1])
+					index_state = np.where(self.q_table == self.current_game[i][0])
 					self.q_table[index_state[0][0], index_cell[0][1]-1] += self.learning_rate * (self.gamma * -1 - self.q_table[index_state[0][0], index_cell[0][1]-1])
 				else:
 					for l in range(len(self.q_table) - 1):
 						if self.q_table[l, 0] == 0:
-							self.q_table[l, 0] = self.current_game[i,0]
-							index_cell = np.where(self.total_cells == self.current_game[i,1])
+							self.q_table[l, 0] = self.current_game[i][0]
+							index_cell = np.where(self.total_cells == self.current_game[i][1])
 							self.q_table[l, index_cell[0][1]-1] += self.learning_rate * (self.gamma * -1 - self.q_table[index_state[0][0], index_cell[0][1]-1])
 		pass
 
@@ -98,35 +98,35 @@ class model:
 		# print(len(self.total_cells))
 		# print("\n\n")
 
-		if np.all(np.isin(state, self.q_table)) == True:
-			if choice(0,1) < self.epsilon:
-				#random
-				to_send = choice(available_cells)
-				current_choice = [state, to_send]
-				self.current_game.append(current_choice)
-				#print(to_send)
-				#print("Found in Q_Table")
-				return to_send
-
-			else:
-				#exploit table
-				index = np.where(self.q_table == state)
-				max_reward = self.q_table[index[0][0], 1]
-				for i in range(len(self.total_cells) - 1):
-					if self.q_table[index[0][0], i+1] > max_reward:
-						max_reward = self.q_table[index[0][0], i+1]
-						max_reward_action = self.total_cells[i]
-
-				to_send = max_reward_action
-				current_choice = [state, to_send]
-				self.current_game.append(current_choice)
-				#print(to_send)
-				#print("Found in Q_Table")
-				return to_send
-		else:
+		# if np.all(np.isin(state, self.q_table)) == True:
+		# 	if choice(0,1) < self.epsilon:
+		# 		#random
+		# 		to_send = choice(available_cells)
+		# 		current_choice = [state, to_send]
+		# 		self.current_game.append(current_choice)
+		# 		#print(to_send)
+		# 		#print("Found in Q_Table")
+		# 		return to_send
+		#
+		# 	else:
+		# 		#exploit table
+		# 		index = np.where(self.q_table == state)
+		# 		max_reward = self.q_table[index[0][0], 1]
+		# 		for i in range(len(self.total_cells) - 1):
+		# 			if self.q_table[index[0][0], i+1] > max_reward:
+		# 				max_reward = self.q_table[index[0][0], i+1]
+		# 				max_reward_action = self.total_cells[i]
+		#
+		# 		to_send = max_reward_action
+		# 		current_choice = [state, to_send]
+		# 		self.current_game.append(current_choice)
+		# 		#print(to_send)
+		# 		#print("Found in Q_Table")
+		# 		return to_send
+		# else:
 			#random
-			to_send = choice(available_cells)
-			current_choice = [state, to_send]
-			self.current_game.append(current_choice)
-			#print(to_send)
-			return to_send
+		to_send = choice(available_cells)
+		current_choice = [state, to_send]
+		self.current_game.append(current_choice)
+		print(to_send)
+		return to_send

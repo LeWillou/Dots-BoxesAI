@@ -15,11 +15,11 @@ import time
 
 GRAPHIC_MODE = False
 
-AI_PLAYER_1 = "players.willou"
-AI_PLAYER_2 = "players.bender"
+AI_PLAYER_1 = "players.willou_train"
+AI_PLAYER_2 = "players.willou_not_so_good_algorithm"
 
 LOAD_TRAINED_MODEL = True
-NB_DUEL = 1
+NB_DUEL = 3000
 
 
 # ----------------------------------------

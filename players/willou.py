@@ -16,7 +16,8 @@ class model:
 			self.build()
 
 		self.current_game = list()
-		self.q_table = np.zeros((12544, 113))
+		self.q_table = np.zeros((12544, 112))
+		self.q_states = np.zeros(12544, dtype=object)
 
 		self.epsilon = 0.3
 		self.learning_rate = 0.2
@@ -56,30 +57,7 @@ class model:
 
 	@staticmethod
 	def did_i_win(self, result):
-		if result == 1:
-			for i in range(len(self.current_game) - 1):
-				if np.all(np.isin(self.current_game[i][0], self.q_table)) == True:
-					index_cell = np.where(self.total_cells == self.current_game[i][1])
-					index_state = np.where(self.q_table == self.current_game[i][0])
-					self.q_table[index_state[0][0], index_cell[0][1]-1] += self.learning_rate * (self.gamma * 1 - self.q_table[index_state[0][0], index_cell[0][1]-1])
-				else:
-					for l in range(len(self.q_table) - 1):
-						if self.q_table[l, 0] == 0:
-							self.q_table[l, 0] = self.current_game[i][0]
-							index_cell = np.where(self.total_cells == self.current_game[i][1])
-							self.q_table[l, index_cell[0][1]-1] += self.learning_rate * (self.gamma * 1 - self.q_table[index_state[0][0], index_cell[0][1]-1])
-		else:
-			for i in range(len(self.current_game) - 1):
-				if np.all(np.isin(self.current_game[i][0], self.q_table)) == True:
-					index_cell = np.where(self.total_cells == self.current_game[i][1])
-					index_state = np.where(self.q_table == self.current_game[i][0])
-					self.q_table[index_state[0][0], index_cell[0][1]-1] += self.learning_rate * (self.gamma * -1 - self.q_table[index_state[0][0], index_cell[0][1]-1])
-				else:
-					for l in range(len(self.q_table) - 1):
-						if self.q_table[l, 0] == 0:
-							self.q_table[l, 0] = self.current_game[i][0]
-							index_cell = np.where(self.total_cells == self.current_game[i][1])
-							self.q_table[l, index_cell[0][1]-1] += self.learning_rate * (self.gamma * -1 - self.q_table[index_state[0][0], index_cell[0][1]-1])
+		print(self.current_game)
 		pass
 
 
@@ -128,5 +106,5 @@ class model:
 		to_send = choice(available_cells)
 		current_choice = [state, to_send]
 		self.current_game.append(current_choice)
-		print(to_send)
+		#print(to_send)
 		return to_send

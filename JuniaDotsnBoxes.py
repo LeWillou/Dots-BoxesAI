@@ -16,7 +16,7 @@ import time
 GRAPHIC_MODE = False
 
 AI_PLAYER_1 = "players.willou_train"
-AI_PLAYER_2 = "players.willou_not_so_good_algorithm"
+AI_PLAYER_2 = "players.willou_another"
 
 LOAD_TRAINED_MODEL = True
 NB_DUEL = 3000

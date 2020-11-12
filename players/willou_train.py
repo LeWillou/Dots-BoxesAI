@@ -54,12 +54,15 @@ class model:
             self.game_choices.clear()
             self.game_states.clear()
         
-        if self.counter%3000 == 0:
+        if self.counter%1 == 0:
             self.dataset.append(self.won_game_states)
             self.dataset.append(self.won_game_choices)
-            with open('dataset.csv', 'w') as csvfile:
-                writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
-                writer.writerow(self.dataset)
+            dataset_to_save = np.array([self.dataset[0], self.dataset[1]])
+            #print(dataset_to_save[1])
+            # with open('dataset_training.csv', 'w') as csvfile:
+            #     writer = csv.writer(csvfile, delimiter=',')
+            #     writer.writerow(self.dataset)
+            np.save('dataset_training.npy', dataset_to_save)
 
         pass
 

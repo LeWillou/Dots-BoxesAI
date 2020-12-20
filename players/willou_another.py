@@ -5,7 +5,7 @@ import numpy as np
 class model:
 
     def __init__(self, load_trained):
-        self.name = "Le Willou But Another"  # put your name here
+        self.name = "Training Agent"  # put your name here
 
         self.current_game = np.array([])
 

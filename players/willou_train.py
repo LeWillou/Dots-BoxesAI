@@ -42,10 +42,14 @@ class model:
 
 
     @staticmethod
-    def did_i_win(self, result):
-        self.counter += 1
+    def check_wins(self):
+        return self.counter
 
+    @staticmethod
+    def did_i_win(self, result):
+        
         if result == 1:
+            self.counter += 1
             for i in range(len(self.game_states)):
                 self.won_game_states.append(self.game_states[i])
         
@@ -54,7 +58,7 @@ class model:
             self.game_choices.clear()
             self.game_states.clear()
         
-        if self.counter%1 == 0:
+        if self.counter == 10000:
             self.dataset.append(self.won_game_states)
             self.dataset.append(self.won_game_choices)
             dataset_to_save = np.array([self.dataset[0], self.dataset[1]])
@@ -63,7 +67,7 @@ class model:
             #     writer = csv.writer(csvfile, delimiter=',')
             #     writer.writerow(self.dataset)
             np.save('dataset_training.npy', dataset_to_save)
-
+            
         pass
 
     def fill_current_board(self, available_cells, empty_board, current_board):
@@ -87,6 +91,7 @@ class model:
         counter = 0
         index_to_send = -1
         k = 0
+        cur_choice = np.zeros(112)
 
         self.game_states.append(current_board)
         #print(self.game_states)
@@ -98,15 +103,19 @@ class model:
                     counter += 1
             
             if counter == 1:
-                self.game_choices.append(available_cells[index_to_send])
+                cur_choice[self.empty_board.index(available_cells[index_to_send])] = 1
+                self.game_choices.append(cur_choice)
                 return available_cells[index_to_send]
 
             elif counter == 2:
                 rand_index = choice(
                     [k for i in range(len(available_cells)) if k != j])
-                self.game_choices.append(available_cells[rand_index])
+                # self.game_choices.append(available_cells[rand_index])
+                cur_choice[self.empty_board.index(available_cells[rand_index])] = 1
+                self.game_choices.append(cur_choice)
                 return available_cells[rand_index]
 
         cell_to_send = choice(available_cells)
-        self.game_choices.append(cell_to_send)
+        cur_choice[self.empty_board.index(cell_to_send)] = 1
+        self.game_choices.append(cur_choice)
         return cell_to_send

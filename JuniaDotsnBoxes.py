@@ -19,7 +19,7 @@ AI_PLAYER_1 = "players.willou_train"
 AI_PLAYER_2 = "players.willou_another"
 
 LOAD_TRAINED_MODEL = True
-NB_DUEL = 3000
+NB_DUEL = 1
 
 
 # ----------------------------------------
@@ -278,7 +278,9 @@ def decide_and_move_graphic(ai_player, is_first_player):
 
 #@timing #décommenter pour voir temps d'exécution
 def duel(current_duel, player1, player2):
+    global NB_DUEL
     global is_AI1_turn
+    
     ended = False
 
     print(f"\nDuel {current_duel} : {player1.name} vs {player2.name}")
@@ -297,12 +299,18 @@ def duel(current_duel, player1, player2):
     if score[0] > score[1]:
         print(f"{player1.name} won! Score: {score[0]} to {score[1]}")
         player1.did_i_win(player1, 1)
+        if player1.check_wins(player1) < 10000:
+            print("Wins : " + str(player1.check_wins(player1)))
+            NB_DUEL += 1   
 
 
     else: #pas de nombre pair de points
         print(f"{player2.name} won! Score: {score[0]} to {score[1]}")
         player1.did_i_win(player1, 0)
-
+        if player1.check_wins(player1) < 10000:
+            print("Wins : " + str(player1.check_wins(player1)))
+            NB_DUEL += 1
+            
 
 def duel_graphic(current_duel, player1, player2):
     global is_AI1_turn
@@ -345,6 +353,7 @@ def duel_graphic(current_duel, player1, player2):
 if __name__ == "__main__":
     global ai_player_1
     global ai_player_2
+    duel_counter = 0
 
     counter = 0
 
@@ -359,9 +368,11 @@ if __name__ == "__main__":
             init_board.append( Point(BOARDSIZE * i + i2, i2 * BS + BS, i * BS + BS, []))
 
     if not GRAPHIC_MODE:
-        for i in range(NB_DUEL):
+        while NB_DUEL > 0:
+            duel_counter += 1
             try:
-                duel(i, ai_player_1, ai_player_2)
+                duel(duel_counter, ai_player_1, ai_player_2)
+                NB_DUEL -= 1
             except Exception as inst:
                 traceback.print_exc(file=sys.stdout)
                 print(f"{ai_player_1.name if is_AI1_turn else ai_player_2.name} disqualified")
